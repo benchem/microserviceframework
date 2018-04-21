@@ -1,0 +1,13 @@
+version buildVersion
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+sourceCompatibility = 1.8
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+    compile("com.alibaba:fastjson:$fastjsonVersion")
+
+    testCompile group: 'junit', name: 'junit', version: junitVersion
+}
