@@ -9,5 +9,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
     compile("com.alibaba:fastjson:$fastjsonVersion")
 
+    compile project(":framework")
+
     testCompile group: 'junit', name: 'junit', version: junitVersion
 }
