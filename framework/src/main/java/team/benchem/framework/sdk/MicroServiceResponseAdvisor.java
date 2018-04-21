@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
-import team.benchem.framework.bean.MicroServiceException;
-import team.benchem.framework.bean.Result;
-import team.benchem.framework.bean.StateCode;
-import team.benchem.framework.bean.SystemStateCode;
+import team.benchem.framework.lang.MicroServiceException;
+import team.benchem.framework.lang.Result;
+import team.benchem.framework.lang.StateCode;
+import team.benchem.framework.lang.SystemStateCode;
 
 @ControllerAdvice
 public class MicroServiceResponseAdvisor implements ResponseBodyAdvice<Object> {

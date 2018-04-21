@@ -1,4 +1,4 @@
-package team.benchem.framework.bean;
+package team.benchem.framework.lang;
 
 public class MicroServiceException extends RuntimeException {
     private StateCode stateCode;

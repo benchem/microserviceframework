@@ -8,10 +8,12 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/")
-public class InHandStockController {
+public class WarehouseController {
     @RequestMapping("/time")
     public Date getServerTime(){
         Calendar calendar = Calendar.getInstance();
         return calendar.getTime();
     }
+
+
 }
