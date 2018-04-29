@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import team.benchem.demo.bill.entity.OrderBill;
 import team.benchem.demo.bill.service.OrderService;
+import team.benchem.framework.annotation.RequestTokenValidate;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -36,5 +37,12 @@ public class OrderBillController {
     @RequestMapping("/query")
     public OrderBill queryOrderBill(@RequestParam String billNumber){
         throw  new NotImplementedException();
+    }
+
+    @RequestMapping("/test")
+    @RequestTokenValidate
+    public OrderBill billTest(@RequestBody OrderBill orderBill){
+        orderBill.setBillNumber("123");
+        return orderBill;
     }
 }

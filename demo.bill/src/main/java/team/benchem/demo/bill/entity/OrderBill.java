@@ -1,16 +1,40 @@
 package team.benchem.demo.bill.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
+@Entity
 public class OrderBill {
+    @Id
+    @Column
     String rowId;
+
+    @Column
     String billNumber;
+
+    @Column
     String shippingBillNumber;
+
+    @Column
     Date date;
+
+    @Min(value = 0)
+    @Max(value = 3)
+    @Column
     String billState;
+
+    @Min(value =  0)
+    @Max(value = (long)999999999.99)
+    @Column
     Double amount;
+
+    @Column
     String productName;
 
     public OrderBill() {
