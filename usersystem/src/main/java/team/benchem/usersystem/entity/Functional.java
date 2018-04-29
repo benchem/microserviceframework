@@ -33,6 +33,7 @@ public class Functional {
 
     public Functional() {
         rowId = UUID.randomUUID().toString();
+        orderIndex = 0;
     }
 
     public String getRowId() {

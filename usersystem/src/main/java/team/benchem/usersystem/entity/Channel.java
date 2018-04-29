@@ -25,6 +25,7 @@ public class Channel {
 
     public Channel() {
         rowId = UUID.randomUUID().toString();
+        orderIndex = 0;
     }
 
     public String getRowId() {

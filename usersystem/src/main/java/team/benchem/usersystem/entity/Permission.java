@@ -24,6 +24,7 @@ public class Permission {
 
     public Permission() {
         rowId = UUID.randomUUID().toString();
+        orderIndex = 0;
     }
 
     public String getRowId() {

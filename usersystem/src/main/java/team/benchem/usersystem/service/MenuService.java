@@ -1,6 +1,7 @@
 package team.benchem.usersystem.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import team.benchem.usersystem.entity.Channel;
 import team.benchem.usersystem.lang.UserSystemException;
@@ -33,5 +34,9 @@ public class MenuService {
         }
         channelRepository.save(channel);
         return channel;
+    }
+
+    public List<Channel> getChannels(){
+        return channelRepository.findAll(Sort.by("orderIndex"));
     }
 }
