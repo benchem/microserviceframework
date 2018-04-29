@@ -3,4 +3,5 @@ include 'framework'
 include 'demo.bill'
 include 'demo.stock'
 include 'demo.pay'
+include 'usersystem'
 
