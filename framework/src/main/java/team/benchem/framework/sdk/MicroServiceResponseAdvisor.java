@@ -19,8 +19,28 @@ import team.benchem.framework.lang.SystemStateCode;
 @ControllerAdvice
 public class MicroServiceResponseAdvisor implements ResponseBodyAdvice<Object> {
 
+    @Override
+    public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
+        return true;
+    }
+
+    @Override
+    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
+                                  Class<? extends HttpMessageConverter<?>> selectedConverterType,
+                                  ServerHttpRequest request, ServerHttpResponse response) {
+        Thread thread = Thread.currentThread();
+        System.out.println(String.format("Current thread: %s MicroServiceResponseAdvisor.beforeBodyWrite", thread.getId()));
+        UserContext.removeCurrentUserContext();
+
+        if (body instanceof Result) return body;
+        return new Result(body);
+    }
+
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<Object> handleUnhandleException(Exception ex, WebRequest request) {
+        Thread thread = Thread.currentThread();
+        System.out.println(String.format("Current thread: %s MicroServiceResponseAdvisor.handleUnhandleException", thread.getId()));
+
         String errMsg = ex.getMessage();
         if (errMsg != null && !errMsg.isEmpty()) {
             ex.printStackTrace();
@@ -31,21 +51,11 @@ public class MicroServiceResponseAdvisor implements ResponseBodyAdvice<Object> {
 
     @ExceptionHandler(value = MicroServiceException.class)
     public ResponseEntity<Object> handleException(MicroServiceException ex, WebRequest request) {
+        Thread thread = Thread.currentThread();
+        System.out.println(String.format("Current thread: %s MicroServiceResponseAdvisor.handleException", thread.getId()));
+
         StateCode stateCode = ex.getStateCode();
         Result result = new Result(stateCode.getCode(), stateCode.getMessage());
         return new ResponseEntity(result, HttpStatus.OK);
-    }
-
-    @Override
-    public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-        return true;
-    }
-
-    @Override
-    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
-                                  Class<? extends HttpMessageConverter<?>> selectedConverterType,
-                                  ServerHttpRequest request, ServerHttpResponse response) {
-        if (body instanceof Result) return body;
-        return new Result(body);
     }
 }

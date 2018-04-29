@@ -27,6 +27,10 @@ public class MicroServiceRequestAdvisor implements RequestBodyAdvice {
 
     @Override
     public HttpInputMessage beforeBodyRead(HttpInputMessage inputMessage, MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) throws IOException {
+        Thread thread = Thread.currentThread();
+        System.out.println(String.format("Current thread: %s MicroServiceRequestAdvisor.beforeBodyRead", thread.getId()));
+        UserContext usrCtx = UserContext.createUserContext();
+
         Method executeMethod = parameter.getMethod();
         Class<?> executeController =  executeMethod.getDeclaringClass();
         if(executeController.isAnnotationPresent(MicroServiceValidatePermission.class)){
@@ -43,6 +47,7 @@ public class MicroServiceRequestAdvisor implements RequestBodyAdvice {
             if(token == "" || token.length() == 0){
                 throw new MicroServiceException(SystemStateCode.AUTH_ERROR);
             }
+            usrCtx.properties.put("Suf-Token", token);
             //todo: 加入在线 Token 验证代码
             System.out.println("todo: Token 验证代码");
         }
