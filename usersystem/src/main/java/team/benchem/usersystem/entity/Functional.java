@@ -22,12 +22,12 @@ public class Functional {
     @Column(name="frouterpath")
     String routerPath;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="fgroupid")
-    Group ownerGroup;
+    @Column(name="fownergroupid")
+    String ownerGroupId;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="ownerFunctional")
+    @OneToMany(cascade = CascadeType.ALL)
     @OrderBy(value="orderIndex")
+    @JoinColumn(name="fownerfunctionalid")
     List<Permission> permissions = new ArrayList<>();
 
     public Functional() {
@@ -75,7 +75,16 @@ public class Functional {
         this.routerPath = routerPath;
     }
 
+    public String getOwnerGroupId() {
+        return ownerGroupId;
+    }
+
+    public void setOwnerGroupId(String ownerGroupId) {
+        this.ownerGroupId = ownerGroupId;
+    }
+
     public List<Permission> getPermissions() {
         return permissions;
     }
+
 }

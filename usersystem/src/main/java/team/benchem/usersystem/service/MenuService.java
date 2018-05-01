@@ -14,7 +14,7 @@ public interface MenuService {
 
     void deleteChannel(String channelId);
 
-    Group appendGroup(Group group);
+    Group appendGroup(String channelId, Group group);
 
     void modifyGroup(Group group);
 

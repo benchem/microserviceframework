@@ -19,9 +19,8 @@ public class Permission {
     @Column(name="fpermissionname")
     String permissionName;
 
-    @ManyToOne(cascade =  CascadeType.ALL)
-    @JoinColumn(name="ffunctionalid")
-    Functional ownerFunctional;
+    @Column(name = "fownerfunctionalid")
+    String ownerFunctionalId;
 
     public Permission() {
         rowId = UUID.randomUUID().toString();
@@ -58,5 +57,13 @@ public class Permission {
 
     public void setPermissionName(String permissionName) {
         this.permissionName = permissionName;
+    }
+
+    public String getOwnerFunctionalId() {
+        return ownerFunctionalId;
+    }
+
+    public void setOwnerFunctionalId(String ownerFunctionalId) {
+        this.ownerFunctionalId = ownerFunctionalId;
     }
 }

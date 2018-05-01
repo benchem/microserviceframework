@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import team.benchem.framework.annotation.RequestTokenValidate;
 import team.benchem.usersystem.entity.Channel;
+import team.benchem.usersystem.entity.Group;
 import team.benchem.usersystem.service.MenuService;
 
 @RestController
@@ -21,5 +22,13 @@ public class MenuController {
     @RequestMapping("/addchannel")
     public Channel appendChannel(@RequestBody Channel channel) {
         return menuService.appendChannel(channel);
+    }
+
+    @RequestTokenValidate
+    @RequestMapping("/addgroup")
+    public Group appendChannelGroup(@RequestBody JSONObject group){
+        String channelId = group.getString("channelId");
+        Group groupObj = group.toJavaObject(Group.class);
+        return menuService.appendGroup(channelId, groupObj);
     }
 }

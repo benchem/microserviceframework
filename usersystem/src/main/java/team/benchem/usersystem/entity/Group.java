@@ -19,12 +19,12 @@ public class Group {
     @Column(name="fgroupname")
     String groupName;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fchanneldid")
-    Channel ownerChannel;
+    @Column(name="fchannelid")
+    String ownerChannelId;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ownerGroup")
+    @OneToMany(cascade = CascadeType.ALL)
     @OrderBy(value="orderIndex")
+    @JoinColumn(name="fownergroupid")
     List<Functional> functions = new ArrayList<>();
 
     public Group() {
@@ -66,5 +66,13 @@ public class Group {
 
     public List<Functional> getFunctions() {
         return functions;
+    }
+
+    public String getOwnerChannelId() {
+        return ownerChannelId;
+    }
+
+    public void setOwnerChannelId(String ownerChannelId) {
+        this.ownerChannelId = ownerChannelId;
     }
 }

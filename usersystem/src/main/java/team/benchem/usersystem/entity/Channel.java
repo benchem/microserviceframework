@@ -21,8 +21,9 @@ public class Channel {
     @Column(name="fchannelname")
     String channelName;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ownerChannel")
+    @OneToMany(cascade = CascadeType.ALL)
     @OrderBy(value="orderIndex")
+    @JoinColumn(name="fchannelid")
     List<Group> groups = new ArrayList<>();
 
     public Channel() {

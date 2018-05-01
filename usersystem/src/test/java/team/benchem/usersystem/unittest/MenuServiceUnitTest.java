@@ -41,7 +41,7 @@ public class MenuServiceUnitTest {
         menuService.appendChannel(ch1);
 
         Channel ch2 = new Channel();
-        ch1.setChannelKey("AA");
+        ch1.setChannelKey("aa");
         menuService.appendChannel(ch2);
     }
 

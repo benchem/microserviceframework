@@ -3,6 +3,7 @@ package team.benchem.usersystem.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import team.benchem.framework.lang.MicroServiceException;
 import team.benchem.usersystem.entity.Channel;
 import team.benchem.usersystem.entity.Functional;
 import team.benchem.usersystem.entity.Group;
@@ -14,8 +15,12 @@ import team.benchem.usersystem.repository.GroupRepository;
 import team.benchem.usersystem.repository.PermissionRepository;
 import team.benchem.usersystem.service.MenuService;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
+@Transactional(rollbackOn = {MicroServiceException.class, RuntimeException.class})
 @Service
 public class MenuServiceImpl implements MenuService {
     @Autowired
@@ -32,7 +37,9 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Channel appendChannel(Channel channel){
-        List<Channel> existChannels = channelRepository.findAllByChannelKeyOrChannelName(channel.getChannelKey(), channel.getChannelName());
+        List<Channel> existChannels = channelRepository.findAllByChannelKeyOrChannelName(
+                channel.getChannelKey(),
+                channel.getChannelName());
         if(existChannels.size() > 0){
             throw new UserSystemException(UserSystemStateCode.Channel_IsExist);
         }
@@ -55,12 +62,34 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public void deleteChannel(String channelId) {
-
+        Optional<Channel> channelOptional = channelRepository.findById(channelId);
+        if(!channelOptional.isPresent()){
+            throw new UserSystemException(UserSystemStateCode.Channel_IsNotExist);
+        }
+        channelRepository.delete(channelOptional.get());
     }
 
     @Override
-    public Group appendGroup(Group group) {
-        return null;
+    public Group appendGroup(String channelId, Group group) {
+        Optional<Channel> channelOptional = channelRepository.findById(channelId);
+        if(!channelOptional.isPresent()){
+            throw new UserSystemException(UserSystemStateCode.Channel_IsNotExist);
+        }
+        Group groupOptional = groupRepository.findByOwnerChannelNotExits(
+                channelId,
+                group.getRowId(),
+                group.getGroupKey(),
+                group.getGroupName()
+        );
+        if(groupOptional != null){
+            throw new UserSystemException(UserSystemStateCode.Group_IsExist);
+        }
+
+        Channel ownerCh = channelOptional.get();
+        group.setOwnerChannelId(channelId);
+        ownerCh.getGroups().add(group);
+        channelRepository.save(ownerCh);
+        return group;
     }
 
     @Override
