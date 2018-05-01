@@ -1,12 +1,10 @@
 package team.benchem.usersystem.entity;
 
 import javax.persistence.*;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
-@Entity(name="t_sys_functional")
+@Entity
+@Table(name="t_sys_functional")
 public class Functional {
     @Id
     @Column(name="frowid", length = 36)
@@ -29,7 +27,8 @@ public class Functional {
     Group ownerGroup;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy="ownerFunctional")
-    Set<Permission> permissions = new HashSet<>();
+    @OrderBy(value="orderIndex")
+    List<Permission> permissions = new ArrayList<>();
 
     public Functional() {
         rowId = UUID.randomUUID().toString();
@@ -76,7 +75,7 @@ public class Functional {
         this.routerPath = routerPath;
     }
 
-    public Set<Permission> getPermissions() {
+    public List<Permission> getPermissions() {
         return permissions;
     }
 }

@@ -3,7 +3,8 @@ package team.benchem.usersystem.entity;
 import javax.persistence.*;
 import java.util.UUID;
 
-@Entity(name="t_sys_funcpermission")
+@Entity
+@Table(name="t_sys_funcpermission")
 public class Permission {
     @Id
     @Column(name="frowid", length = 36)

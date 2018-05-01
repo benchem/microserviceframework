@@ -1,11 +1,12 @@
 package team.benchem.usersystem.entity;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
-@Entity(name="t_sys_channel")
+@Entity
+@Table(name="t_sys_channel")
 public class Channel {
     @Id
     @Column(name="frowid", length = 36)
@@ -21,7 +22,8 @@ public class Channel {
     String channelName;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ownerChannel")
-    Set<Group> groups = new HashSet<>();
+    @OrderBy(value="orderIndex")
+    List<Group> groups = new ArrayList<>();
 
     public Channel() {
         rowId = UUID.randomUUID().toString();
@@ -60,7 +62,7 @@ public class Channel {
         this.channelName = channelName;
     }
 
-    public Set<Group> getGroups() {
+    public List<Group> getGroups() {
         return groups;
     }
 }

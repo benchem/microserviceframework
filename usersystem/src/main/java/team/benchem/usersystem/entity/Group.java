@@ -1,11 +1,10 @@
 package team.benchem.usersystem.entity;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
-@Entity(name="t_sys_funcgroup")
+@Entity
+@Table(name="t_sys_funcgroup")
 public class Group {
     @Id
     @Column(name="frowid", length = 36)
@@ -25,7 +24,8 @@ public class Group {
     Channel ownerChannel;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ownerGroup")
-    Set<Functional> functions = new HashSet<>();
+    @OrderBy(value="orderIndex")
+    List<Functional> functions = new ArrayList<>();
 
     public Group() {
         rowId = UUID.randomUUID().toString();
@@ -64,7 +64,7 @@ public class Group {
         this.groupName = groupName;
     }
 
-    public Set<Functional> getFunctions() {
+    public List<Functional> getFunctions() {
         return functions;
     }
 }

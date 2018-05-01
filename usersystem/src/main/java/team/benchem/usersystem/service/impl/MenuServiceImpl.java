@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import team.benchem.usersystem.entity.Channel;
+import team.benchem.usersystem.entity.Functional;
+import team.benchem.usersystem.entity.Group;
 import team.benchem.usersystem.lang.UserSystemException;
 import team.benchem.usersystem.lang.UserSystemStateCode;
 import team.benchem.usersystem.repository.ChannelRepository;
@@ -30,12 +32,60 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Channel appendChannel(Channel channel){
-        List<Channel> exitesChannels = channelRepository.findAllByChannelKeyOrChannelName(channel.getChannelKey(), channel.getChannelName());
-        if(exitesChannels.size() > 0){
-            throw new UserSystemException(UserSystemStateCode.Channel_IsExites);
+        List<Channel> existChannels = channelRepository.findAllByChannelKeyOrChannelName(channel.getChannelKey(), channel.getChannelName());
+        if(existChannels.size() > 0){
+            throw new UserSystemException(UserSystemStateCode.Channel_IsExist);
         }
         channelRepository.save(channel);
         return channel;
+    }
+
+    @Override
+    public void modifyChannel(Channel channel) {
+        Channel existChannel = channelRepository.findByChannelKeyOrChannelNameIsNotExits(
+                channel.getChannelKey(),
+                channel.getChannelName(),
+                channel.getRowId()
+        );
+        if(existChannel != null){
+            throw new UserSystemException(UserSystemStateCode.Channel_IsExist);
+        }
+        channelRepository.save(channel);
+    }
+
+    @Override
+    public void deleteChannel(String channelId) {
+
+    }
+
+    @Override
+    public Group appendGroup(Group group) {
+        return null;
+    }
+
+    @Override
+    public void modifyGroup(Group group) {
+
+    }
+
+    @Override
+    public void deleteGroup(String groupId) {
+
+    }
+
+    @Override
+    public Functional appendFunctional(Functional functional) {
+        return null;
+    }
+
+    @Override
+    public void modifyFunctional(Functional functional) {
+
+    }
+
+    @Override
+    public void deleteFunctional(String functionalId) {
+
     }
 
     @Override

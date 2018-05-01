@@ -3,11 +3,10 @@ package team.benchem.usersystem.entity;
 import javax.persistence.Id;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
-@Entity(name="t_sys_role")
+@Entity
+@Table(name="t_sys_role")
 public class Role {
     @Id
     @Column(name="frowid", length = 36)
@@ -23,12 +22,13 @@ public class Role {
     String describe;
 
     @ManyToMany(cascade = CascadeType.DETACH)
+    @OrderBy(value="username")
     @JoinTable(
         name = "t_sys_rolemapping",
         joinColumns = @JoinColumn(name = "RoleId", referencedColumnName = "frowid"),
         inverseJoinColumns = @JoinColumn(name = "UserId", referencedColumnName = "frowid")
     )
-    Set<User> Users = new HashSet<>();
+    List<User> Users = new ArrayList<>();
 
     public Role() {
         rowId = UUID.randomUUID().toString();
@@ -66,7 +66,7 @@ public class Role {
         this.describe = describe;
     }
 
-    public Set<User> getUsers() {
+    public List<User> getUsers() {
         return Users;
     }
 }

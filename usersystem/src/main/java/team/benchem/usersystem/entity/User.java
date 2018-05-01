@@ -2,14 +2,12 @@ package team.benchem.usersystem.entity;
 
 import sun.misc.BASE64Encoder;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.security.MessageDigest;
 import java.util.UUID;
 
-@Entity(name="t_sys_user")
+@Entity
+@Table(name="t_sys_user")
 public class User {
     @Id
     @Column(name="frowid", length = 36)
