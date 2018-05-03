@@ -1,6 +1,7 @@
 package team.benchem.framework.lang;
 
-public class MicroServiceException extends RuntimeException {
+public class MicroServiceException extends RuntimeException
+{
     private StateCode stateCode;
 
     public MicroServiceException(StateCode stateCode) {
