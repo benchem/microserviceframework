@@ -4,6 +4,7 @@ import sun.misc.BASE64Encoder;
 
 import javax.persistence.*;
 import java.security.MessageDigest;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -33,6 +34,9 @@ public class User {
 
     @Column(name="fisenable")
     Boolean isEnable;
+
+    @Column(name="flastlogintime")
+    Date lastLoginTime;
 
     public User() {
         rowId = UUID.randomUUID().toString();
@@ -100,5 +104,13 @@ public class User {
 
     public void setEnable(Boolean enable) {
         isEnable = enable;
+    }
+
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 }
