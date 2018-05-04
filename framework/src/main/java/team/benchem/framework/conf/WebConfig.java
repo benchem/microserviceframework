@@ -1,4 +1,4 @@
-package team.benchem.framework.sdk;
+package team.benchem.framework.conf;
 
 
 import org.springframework.context.annotation.Configuration;
