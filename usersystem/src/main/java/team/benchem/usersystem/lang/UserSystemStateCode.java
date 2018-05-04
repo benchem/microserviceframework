@@ -1,5 +1,6 @@
 package team.benchem.usersystem.lang;
 
+import sun.security.util.Password;
 import team.benchem.framework.lang.StateCode;
 
 public enum UserSystemStateCode implements StateCode {
@@ -15,7 +16,8 @@ public enum UserSystemStateCode implements StateCode {
     Mobile_IsExites(200052,"此号码已占用"),
     User_IsExites(200053,"用户不存在"),
     Password_isErr(200054,"旧密码输入不正确"),
-    Password_isReqeat(200054,"新密码不能与旧密码相同")
+    Password_isReqeat(200054,"新密码不能与旧密码相同"),
+    Password_IsEmpty(200055,"密码不能为空")
     ;
 
     private Integer code;

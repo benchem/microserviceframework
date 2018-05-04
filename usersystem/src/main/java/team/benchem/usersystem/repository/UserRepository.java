@@ -23,7 +23,7 @@ public interface UserRepository extends PagingAndSortingRepository<User, String>
 
     Optional<User>  findByEmail(String email);
 
-    User findByRowIdAndIsAdmin(String rowId,Boolean isAdmin);
+//    User findByRowIdAndIsAdmin(String rowId,Boolean isAdmin);
 
 //    User findByEmailAndIsAdmin(String email, Boolean isAdmin);
 
