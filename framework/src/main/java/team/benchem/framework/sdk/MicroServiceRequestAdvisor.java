@@ -1,6 +1,7 @@
 package team.benchem.framework.sdk;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpInputMessage;
@@ -12,13 +13,23 @@ import team.benchem.framework.annotation.MicroServiceValidatePermission;
 import team.benchem.framework.annotation.RequestTokenValidate;
 import team.benchem.framework.lang.MicroServiceException;
 import team.benchem.framework.lang.SystemStateCode;
+import team.benchem.framework.utils.RsaHelper;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 @ControllerAdvice
 public class MicroServiceRequestAdvisor implements RequestBodyAdvice {
+
+    @Value("${microservice.publickey}")
+    String microserviceRsaPubKey;
 
     @Override
     public boolean supports(MethodParameter methodParameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
@@ -34,8 +45,20 @@ public class MicroServiceRequestAdvisor implements RequestBodyAdvice {
         Method executeMethod = parameter.getMethod();
         Class<?> executeController =  executeMethod.getDeclaringClass();
         if(executeController.isAnnotationPresent(MicroServiceValidatePermission.class)){
-            //todo: 微服务验权
-            System.out.println("todo:微服务验权");
+
+            HttpHeaders headers = inputMessage.getHeaders();
+            String serviceTokenStr = headers.get("Suf-MS-ServiceToken").get(0);
+            String requestServiceName = headers.get("Suf-MS-RequestService").get(0);
+            String checkServiceName;
+            try {
+                checkServiceName = RsaHelper.publicKeyDecrypt(serviceTokenStr, microserviceRsaPubKey);
+            } catch (Exception e) {
+                checkServiceName = "";
+            }
+            if(!checkServiceName.equals(requestServiceName)){
+                throw  new MicroServiceException(SystemStateCode.AUTH_ERROR);
+            }
+
         }
         if(executeMethod.isAnnotationPresent(RequestTokenValidate.class)){
             HttpHeaders headers = inputMessage.getHeaders();
