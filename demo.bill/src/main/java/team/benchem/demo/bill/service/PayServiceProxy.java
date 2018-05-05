@@ -9,12 +9,12 @@ import team.benchem.framework.lang.RequestType;
 @Service
 public class PayServiceProxy {
 
-    @MicroServiceMethodProxy(microserviceKey = "pay", path= "/pay", type= RequestType.POST)
+    @MicroServiceMethodProxy(microserviceKey = "payService", path= "/pay", type= RequestType.POST)
     public boolean payOrder(JSONObject payInfo) {
         throw new NotImplementedException();
     }
 
-    @MicroServiceMethodProxy(microserviceKey = "pay", path= "/query")
+    @MicroServiceMethodProxy(microserviceKey = "payService", path= "/query")
     public JSONObject getPayLog(String billNumber){
         throw new NotImplementedException();
     }

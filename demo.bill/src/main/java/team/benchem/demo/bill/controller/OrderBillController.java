@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import team.benchem.demo.bill.entity.OrderBill;
 import team.benchem.demo.bill.service.OrderService;
+import team.benchem.demo.bill.service.PayServiceProxy;
 import team.benchem.framework.annotation.RequestTokenValidate;
 import team.benchem.framework.sdk.UserContext;
 
@@ -18,6 +19,9 @@ public class OrderBillController {
 
     @Autowired
     OrderService orderService;
+
+    @Autowired
+    PayServiceProxy payService;
 
     @RequestMapping("/time")
     public Date getServerTime(){
@@ -36,7 +40,8 @@ public class OrderBillController {
     @RequestTokenValidate
     @RequestMapping(path="/pay", method = RequestMethod.POST)
     public String payOrderBill(@RequestBody JSONObject formData){
-        throw  new NotImplementedException();
+
+        return payService.payOrder(formData) ? "OK" : "Fail";
     }
 
     @RequestTokenValidate
