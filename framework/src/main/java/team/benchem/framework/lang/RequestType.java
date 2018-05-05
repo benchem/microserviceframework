@@ -1,4 +1,4 @@
-package team.benchem.framework.bean;
+package team.benchem.framework.lang;
 
 public enum RequestType {
     GET,

@@ -7,7 +7,10 @@ sourceCompatibility = 1.8
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+    compile("org.springframework.boot:spring-boot-starter-aop:$springBootVersion")
     compile("com.alibaba:fastjson:$fastjsonVersion")
+    compile("com.netflix.hystrix:hystrix-core:$hystrixVersion")
+    compile("org.jodd:jodd-http:$joddVersion")
 
-    testCompile group: 'junit', name: 'junit', version: junitVersion
+    testCompile("junit:junit:$junitVersion")
 }

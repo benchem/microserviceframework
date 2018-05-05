@@ -1,0 +1,20 @@
+version buildVersion
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+sourceCompatibility = 1.8
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+    compile("org.springframework.boot:spring-boot-starter-data-redis:$springBootVersion")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
+    compile("com.alibaba:fastjson:$fastjsonVersion")
+    compile("mysql:mysql-connector-java:$mysqlconnectorVersion")
+
+    compile project(":framework")
+
+    testCompile("junit:junit:$junitVersion")
+    testCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
+    testCompile("com.h2database:h2:$h2Version")
+}

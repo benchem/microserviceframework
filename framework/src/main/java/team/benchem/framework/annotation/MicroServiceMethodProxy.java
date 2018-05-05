@@ -1,6 +1,6 @@
 package team.benchem.framework.annotation;
 
-import team.benchem.framework.bean.RequestType;
+import team.benchem.framework.lang.RequestType;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
