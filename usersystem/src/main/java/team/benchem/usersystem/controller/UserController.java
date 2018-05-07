@@ -1,5 +1,6 @@
 package team.benchem.usersystem.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import netscape.javascript.JSObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,19 @@ public class UserController {
     //获取用户列表
     @RequestTokenValidate
     @RequestMapping("/list")
-    public List<User> findUsers(
+    public JSONArray findUsers(
             @PathParam("keyword") String keyword,
             @PathParam("page") Integer page,
             @PathParam("size") Integer size
     ){
-        return userService.findUsers(keyword, page, size);
+        List<User> userList = userService.findUsers(keyword, page, size);
+        JSONArray reValue = new JSONArray();
+        for(User item:userList){
+            JSONObject json = JSONObject.parseObject(JSONObject.toJSONString(item));
+            json.remove("passwordHash");
+            reValue.add(json);
+        }
+        return reValue;
     }
     //编辑用户
     @RequestTokenValidate
@@ -67,7 +75,7 @@ public class UserController {
     @RequestTokenValidate
     @RequestMapping("/changepassword")
     public void changepassword(String rowId,String oldPassword,String newPassword){
-        userService.changepassword(rowId,oldPassword,newPassword);
+        userService.changePassword(rowId,oldPassword,newPassword);
     }
     //启用/禁用用户
     @RequestTokenValidate

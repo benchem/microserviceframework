@@ -11,15 +11,15 @@ public interface UserService {
 
     User modifyUser(User user);
 
-    void changepassword(String rowId,String oldPassword	,String newPassword);
+    void changePassword(String rowId,String oldPassword	,String newPassword);
 
-    void deleteUser(String userId);
+    void deleteUser(String rowId);
 
     void setAdmin(String rowId,Boolean isAdmin);
 
-    void resetPassword(String userId, String password);
+    void resetPassword(String rowId, String newPassword);
 
-    void setEnable(String userId,  Boolean isEnable);
+    void setEnable(String rowId,  Boolean isEnable);
 
 
 }

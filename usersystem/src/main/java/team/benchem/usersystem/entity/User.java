@@ -113,4 +113,19 @@ public class User {
     public void setLastLoginTime(Date lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "rowId='" + rowId + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", passwordHash='" + passwordHash + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", email='" + email + '\'' +
+                ", isAdmin=" + isAdmin +
+                ", isEnable=" + isEnable +
+                ", lastLoginTime=" + lastLoginTime +
+                '}';
+    }
 }
