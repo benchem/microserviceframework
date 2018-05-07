@@ -17,7 +17,11 @@ public enum UserSystemStateCode implements StateCode {
     User_IsExites(200053,"用户不存在"),
     Password_isErr(200054,"旧密码输入不正确"),
     Password_isReqeat(200054,"新密码不能与旧密码相同"),
-    Password_IsEmpty(200055,"密码不能为空")
+    Password_IsEmpty(200055,"密码不能为空"),
+    IsAdmin_IsEmpty(200056,"管理员标识不能为空"),
+    IsEnable_IsEmpty(200057,"是否启用不能为空"),
+    OldPassword_IsEmpty(200058,"请输入旧密码"),
+    NewPassword_IsEmpty(200059,"新密码不能为空")
     ;
 
     private Integer code;
