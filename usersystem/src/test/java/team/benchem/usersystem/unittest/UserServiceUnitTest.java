@@ -560,7 +560,7 @@ public class UserServiceUnitTest {
         }
         return new String(charr);
     }
-    /**
+    /** 
      * @作者 尧
      * @功能 String右对齐
      */
