@@ -569,7 +569,6 @@ public class UserServiceUnitTest {
         if (diff <= 0) {
             return src;
         }
-
         char[] charr = new char[len];
         System.arraycopy(src.toCharArray(), 0, charr, diff, src.length());
         for (int i = 0; i < diff; i++) {
