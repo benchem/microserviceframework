@@ -320,6 +320,25 @@ public class UserServiceUnitTest {
         }
     }
 
+
+    @Test       //邮箱不修改
+    public void test_modUser_case8(){
+        User u=new User();
+        u.setRowId("u123");
+        u.setMobile("123344");
+        u.setEmail("abc@123.com");
+        userService.modifyUser(u);
+        Assert.assertEquals(true,true);
+    }
+    @Test       //手机号码不修改
+    public void test_modUser_case9(){
+        User u=new User();
+        u.setRowId("u123");
+        u.setMobile("123");
+        u.setEmail("abc@12.com");
+        userService.modifyUser(u);
+        Assert.assertEquals(true,true);
+    }
     /**
      *
      * 删除用户
